@@ -1,0 +1,40 @@
+.login-card {
+    height: 95vh;
+}
+
+.submit-btn {
+    width: 100%
+}
+
+.signin-as {
+    color: #ddd
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+.image-container {
+
+}
+.success-image {
+  font-weight: bold;
+  color: green;
+}
+.fail-image {
+  font-weight: bold;
+  color: red;
+}
+.image-div {
+    height: 100px;
+    width: 100px;
+    border: 1px solid #ddd;
+    cursor: pointer;
+}
+
+.image-div > img {
+    height: 100px;
+    width: 100px;
+    cursor: pointer;
+    object-fit: cover;
+}
