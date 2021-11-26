@@ -35,7 +35,7 @@ const Header = () => {
           <Nav>
             <div className="d-inline-flex justify-content-center align-items-center">
               <p className="signin-as m-0">Signin as: </p>
-              <p className="text-white m-0 px-2"> {_.get(getUser, "email")}</p>
+              <p className="text-white m-0 px-2"> {getUser ? _.get(JSON.parse(getUser), "email") : null}</p>
               <a className="btn btn-danger" onClick={handleLogout}>
                 Logout
               </a>
