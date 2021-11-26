@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { auth} from "../firebase";
+import { auth } from "../firebase";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 
 const Login = () => {
@@ -13,7 +13,7 @@ const Login = () => {
     password: "",
   });
 
-  const setErrorMessage = (code) => {
+  const setErrorMessage = (code: string) => {
     switch (code) {
       case "auth/invalid-email":
         setError("Invalid Email/Password");
@@ -32,7 +32,7 @@ const Login = () => {
         break;
     }
   };
-  const handleChange = (e) => {
+  const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -49,13 +49,13 @@ const Login = () => {
         navigate("/dashboard", { replace: true });
       }
       return res;
-    } catch (err) {
+    } catch (err: any) {
       setErrorMessage(err.code);
       return null;
     }
   };
   return (
-    <Row>
+    <Row className="m-0">
       <Col></Col>
       <Col xs="8" className="align-items-center d-flex justify-content-center login-card">
         <Form className="w-50">

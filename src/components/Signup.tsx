@@ -14,10 +14,10 @@ const SignUp = () => {
     password: "",
     confirmPassword: "",
   });
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
-  const setErrorMessage = (code) => {
+  const setErrorMessage = (code: string) => {
     switch (code) {
       case "auth/password-not-matched":
         setError("Password and confirm password not matched")
@@ -64,12 +64,12 @@ const SignUp = () => {
     }else{
       setErrorMessage("auth/password-not-matched")
     }
-    } catch (err) {
+    } catch (err: any) {
       setErrorMessage(err.code)
     }
   };
   return (
-    <Row>
+    <Row className="m-0">
       <Col></Col>
       <Col xs="8" className="align-items-center d-flex justify-content-center login-card">
         <Form className="w-50">

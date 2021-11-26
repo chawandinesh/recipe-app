@@ -1,0 +1,1 @@
+type AllRecipesState = AddRecipeFormDataState[];

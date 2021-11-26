@@ -1,13 +1,14 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import _ from "lodash";
+import * as _ from "lodash";
 import { signOut } from "@firebase/auth";
 import { auth } from "../firebase";
 import { useNavigate } from "react-router";
 
 const Header = () => {
   const navigate = useNavigate()
+  const getUser = localStorage.getItem("user")
   const handleLogout = async () => {
     try {
       await signOut(auth);
@@ -34,7 +35,7 @@ const Header = () => {
           <Nav>
             <div className="d-inline-flex justify-content-center align-items-center">
               <p className="signin-as m-0">Signin as: </p>
-              <p className="text-white m-0 px-2"> {_.get(JSON.parse(localStorage.getItem("user")), "email")}</p>
+              <p className="text-white m-0 px-2"> {_.get(getUser, "email")}</p>
               <a className="btn btn-danger" onClick={handleLogout}>
                 Logout
               </a>

@@ -5,29 +5,29 @@ import React, { useEffect, useState } from "react";
 import { Modal, Button, Form, Spinner } from "react-bootstrap";
 import { FaCheckSquare, FaPlus } from "react-icons/fa";
 import { auth, db, storageRef } from "../firebase";
-import _ from "lodash";
-const AddRecipeModalForm = ({ show, setShow , getAllRecipies}) => {
-  const imageRef = React.createRef();
+import * as _ from "lodash";
+const AddRecipeModalForm: React.FC<AddRecipeModalFormProps> = ({ show, setShow, getAllRecipes }) => {
+  const imageRef = React.createRef<HTMLInputElement>();
   const [imageLoading, setImageLoading] = useState({
     loading: false,
     error: false,
   });
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<AddRecipeFormDataState>({
     name: "",
     overView: "",
-    image: null,
+    image: undefined,
   });
 
-  const clearForm = ()  => {
-     setFormData({
+  const clearForm = () => {
+    setFormData({
       name: "",
       overView: "",
-      image: null,
-     })
-  }
+      image: undefined,
+    });
+  };
   const [allRecipes, setAllRecipes] = useState([]);
 
-  const getAllRecipiesOfCurrentUser = async () => {
+  const getAllRecipesOfCurrentUser = async () => {
     const q = query(collection(db, "users"));
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
@@ -47,20 +47,22 @@ const AddRecipeModalForm = ({ show, setShow , getAllRecipies}) => {
           ...eachDoc.data(),
           recipes: [...allRecipes, formData],
         }).then((res) => {
-          getAllRecipies()
-          clearForm()
+          getAllRecipes();
+          clearForm();
         });
       }
     });
   };
 
   useEffect(() => {
-    getAllRecipiesOfCurrentUser();
+    getAllRecipesOfCurrentUser();
   }, []);
 
-  const handleImage = (e) => {
+  const handleImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if(!files?.length) return 
     setImageLoading({ ...imageLoading, loading: true });
-    uploadBytes(storageRef(`${auth?.currentUser?.uid}-${formData.name}`), e.target.files[0]).then((snapshot) => {
+    uploadBytes(storageRef(`${auth?.currentUser?.uid}-${formData.name}`), files[0]).then((snapshot) => {
       getDownloadURL(storageRef(`${auth?.currentUser?.uid}-${formData.name}`)).then((data) => {
         setFormData({ ...formData, image: data });
         setImageLoading({ ...imageLoading, loading: false });
@@ -68,14 +70,17 @@ const AddRecipeModalForm = ({ show, setShow , getAllRecipies}) => {
     });
   };
 
-  const handleChange = (e) => {
+  const handleChange = (e:  React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
   return (
-    <Modal show={show} onHide={() => {
-      setShow(false)
-      clearForm()
-    }}>
+    <Modal
+      show={show}
+      onHide={() => {
+        setShow(false);
+        clearForm();
+      }}
+    >
       <Modal.Header closeButton>
         <Modal.Title>Add Recipe</Modal.Title>
       </Modal.Header>
@@ -105,7 +110,7 @@ const AddRecipeModalForm = ({ show, setShow , getAllRecipies}) => {
             <div
               className="image-div d-flex align-items-center justify-content-center"
               onClick={() => {
-                imageRef.current.click();
+                imageRef.current?.click()
               }}
             >
               {imageLoading.loading ? (
@@ -131,10 +136,13 @@ const AddRecipeModalForm = ({ show, setShow , getAllRecipies}) => {
         </Form.Group>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={() => {
-          setShow(false)
-          clearForm()
-        }}>
+        <Button
+          variant="secondary"
+          onClick={() => {
+            setShow(false);
+            clearForm();
+          }}
+        >
           Close
         </Button>
         <Button variant="primary" onClick={() => addRecipes()}>
