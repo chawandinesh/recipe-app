@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React,{ useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Dashboard from "../components/Dashboard";
 import Login from "../components/Login";
@@ -7,21 +7,24 @@ import Signup from "../components/Signup";
 import { getAuth, onAuthStateChanged } from "@firebase/auth";
 import Header from "../components/Header";
 import { Col, Row } from "react-bootstrap";
+import { PropsWithChildren } from "react-transition-group/node_modules/@types/react";
 
 type ChildProps = {
-  children : any
-}
+  children: any;
+};
+
+
+const RequireAuth = ({children}: PropsWithChildren<{children: React.ReactChild}>): any  => {
+  // console.log(props,'props...')
+  let location = useLocation();
+  if (localStorage.getItem("user")) {
+    return children
+  }
+  return <Navigate to="/login" state={{ from: location }} />;
+};
 
 const AppRoutes = () => {
   const [state, setstate] = useState(false);
-  const RequireAuth = ({ children }: ChildProps) => {
-    let location = useLocation();
-    if (localStorage.getItem("user")) {
-      return children;
-    }
-    return <Navigate to="/login" state={{ from: location }} />;
-  };
-
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(getAuth(), (user) => {
       if (user) {
@@ -36,10 +39,10 @@ const AppRoutes = () => {
 
   const Layout = ({ children }: ChildProps) => (
     <Col>
-      <Row  className="m-0">
+      <Row className="m-0">
         <Header />
       </Row>
-      <Row  className="m-0">{children}</Row>
+      <Row className="m-0">{children}</Row>
     </Col>
   );
 

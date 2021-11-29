@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Nav } from "react-bootstrap";
 import * as _ from "lodash";
 import { signOut } from "@firebase/auth";
 import { auth } from "../firebase";
@@ -19,16 +18,9 @@ const Header = () => {
     }
   };
   return (
-    <Navbar bg="dark" variant="dark">
-      <Container>
+    <Navbar bg="dark" variant="dark" className="w-100 d-flex justify-content-between" >
+      {/* <Container> */}
         <Navbar.Brand href="#home">
-          {/* <img
-              alt=""
-              src="/logo.svg"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-            />{' '} */}
           Recipe App
         </Navbar.Brand>
         {localStorage.getItem("user") && (
@@ -42,7 +34,7 @@ const Header = () => {
             </div>
           </Nav>
         )}
-      </Container>
+      {/* </Container> */}
     </Navbar>
   );
 };

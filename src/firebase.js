@@ -2,22 +2,18 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "@firebase/auth";
 import { getStorage, ref } from "firebase/storage";
 import { getFirestore } from "@firebase/firestore";
-const {
-  REACT_APP_API_KEY,
-  REACT_APP_AUTH_DOMAIN,
-  REACT_APP_PROJECT_ID,
-  REACT_APP_STORAGE_BUCKET,
-  REACT_APP_MESSAGING_SENDER_ID,
-  REACT_APP_ID,
-} = process.env;
+
+
 const firebaseConfig = {
-  apiKey: REACT_APP_API_KEY,
-  authDomain: REACT_APP_AUTH_DOMAIN,
-  projectId: REACT_APP_PROJECT_ID,
-  storageBucket: REACT_APP_STORAGE_BUCKET,
-  messagingSenderId: REACT_APP_MESSAGING_SENDER_ID,
-  appId: REACT_APP_ID
+  apiKey: "AIzaSyDCLg0kh6Lm-jjjuXD3qX6LR5c31LsoisA",
+  authDomain: "recipe-app-f8041.firebaseapp.com",
+  projectId: "recipe-app-f8041",
+  storageBucket: "recipe-app-f8041.appspot.com",
+  messagingSenderId: "496830238323",
+  appId: "1:496830238323:web:6daa16b2529355602b2406"
 };
+
+
 const app = initializeApp(firebaseConfig);
 export const auth = getAuth();
 export const db = getFirestore(app);

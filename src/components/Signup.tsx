@@ -71,8 +71,8 @@ const SignUp = () => {
   return (
     <Row className="m-0">
       <Col></Col>
-      <Col xs="8" className="align-items-center d-flex justify-content-center login-card">
-        <Form className="w-50">
+      <Col  xs={12} sm={8} lg={6} className="align-items-center d-flex justify-content-center login-card">
+        <Form className="w-75">
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Name</Form.Label>
             <Form.Control value={name} name="name" onChange={handleChange} type="text" placeholder="Enter Name" />
